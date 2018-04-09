@@ -1,0 +1,82 @@
+{
+    "loaders": [
+        {
+            "type": "node",
+            "name": "node",
+            "configuration": {
+                "binding.path": "../../bindings/nodejs/libnodejs_binding.so"
+            }
+        }
+    ],
+    "modules": [
+        {
+            "name": "node_sensor",
+            "loader": {
+                "name": "node",
+                "entrypoint": {
+                    "main.path": "../../../samples/nodejs_asa_edge/modules/sensor.js"
+                }
+            },
+            "args": null
+        },
+        {
+            "name": "iothub_writer",
+            "loader": {
+                "name": "node",
+                "entrypoint": {
+                    "main.path": "../../../samples/nodejs_asa_edge/modules/client.js"
+                 }
+            },
+          "args": {
+            "connection_string": "HostName=EdgeSpaceIoTHub.azure-devices.net;DeviceId=officepi;SharedAccessKey=BC7Vdp5OyJwqNMmKztnK/6omPrk4Q27ctPYeFwWvAQs=",
+            "data_sent_when_stopped": null,
+            "data_sent_when_running": "Processed Event"  
+          }
+        },
+        {
+            "name": "node_asa",
+            "loader": {
+                "name": "node",
+                "entrypoint": {
+                    "main.path": "../../../samples/nodejs_asa_edge/modules/asa.js"
+                }
+            },
+            "args": {
+                "deviceid": "officepi",
+                "output_message_name":  "Processed Event"
+            }
+        },
+        {
+            "name": "node_logger",
+            "loader": {
+                "name": "node",
+                "entrypoint": {
+                    "main.path": "../../../samples/nodejs_asa_edge/modules/logger.js"
+                }
+            },
+            "args": null
+        }
+    ],
+    "links": [
+        {
+            "source": "node_sensor",
+            "sink": "node_asa"
+        },
+        {
+            "source": "node_asa",
+            "sink": "iothub_writer"
+        },
+        {
+            "source": "iothub_writer",
+            "sink": "node_asa"
+        },
+        {
+            "source": "node_asa",
+            "sink": "node_logger"
+        },
+        {
+            "source": "iothub_writer",
+            "sink": "node_logger"
+        }
+    ]
+}

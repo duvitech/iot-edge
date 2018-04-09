@@ -1,0 +1,21 @@
+﻿{
+  "name": "azure-iot-gateway-samples",
+  "version": "1.2.62026.1",
+  "description": "",
+  "main": "iothub_writer.js",
+  "author": "Microsoft",
+  "license": "Copyright Microsoft Corporation � Please refer License.pdf",
+  "dependencies": {
+    "azure-iot-device": "^1.1.2",
+    "azure-iot-device-amqp": "^1.0.6",
+    "azure-iot-device-mqtt": "^1.1.2",
+    "chai": "^3.5.0",
+    "get-folder-size": "^1.0.0",
+    "glob": "^3.1.10",
+    "heap": "^0.2.6",
+    "mkdirp": "^0.5.1",
+    "ncp": "^2.0.0",
+    "path": "^0.12.7",
+    "unzip": "^0.1.11"
+  }
+}
